@@ -1,27 +1,33 @@
 public class EmpleadoVenta extends Empleado  {
 
-    private int totalVentas;
-    private double porcentajeComsion;
+    private double totalVentas;
+    private double porcentajeComision;
 
-    public EmpleadoVenta(String nombre, String documento, int edad, double salarioBase, CategoriaEmpleado categoriaempleado, double descuentoSalud, double descuentoPension, int totalVentas, double porcentajeComsion) {
+    public EmpleadoVenta(String nombre, String documento, int edad, double salarioBase, CategoriaEmpleado categoriaempleado, double descuentoSalud, double descuentoPension, double totalVentas, double porcentajeComision) {
         super(nombre, documento, edad, salarioBase, categoriaempleado, descuentoSalud, descuentoPension);
         this.totalVentas = totalVentas;
-        this.porcentajeComsion = porcentajeComsion;
+        this.porcentajeComision = porcentajeComision;
+    }
+    @Override
+    public double calcularSalarioBruto() {
+        double totalsalarioventas;
+        double comision = (totalVentas * porcentajeComision) / 100;
+        totalsalarioventas= getSalarioBase() + calcularBonificacionCategoria() + comision;
+        return totalsalarioventas;
+    }
+    public double getPorcentajeComision() {
+        return porcentajeComision;
     }
 
-    public double getPorcentajeComsion() {
-        return porcentajeComsion;
+    public void setPorcentajeComision(double porcentajeComision) {
+        this.porcentajeComision = porcentajeComision;
     }
 
-    public void setPorcentajeComsion(double porcentajeComsion) {
-        this.porcentajeComsion = porcentajeComsion;
-    }
-
-    public int getTotalVentas() {
+    public double getTotalVentas() {
         return totalVentas;
     }
 
-    public void setTotalVentas(int totalVentas) {
+    public void setTotalVentas(double totalVentas) {
         this.totalVentas = totalVentas;
     }
 

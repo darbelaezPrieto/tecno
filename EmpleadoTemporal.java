@@ -3,15 +3,21 @@ public class EmpleadoTemporal extends Empleado {
     private int diasTrabajados;
     private double valorDia;
 
-    public EmpleadoTemporal(String nombre, String documento, int edad, double salarioBase, String categoria, double descuentoSalud, double descuentoPension,int diasTrabajados,double valorDia){
+    public EmpleadoTemporal(String nombre, String documento, int edad, double salarioBase, CategoriaEmpleado categoriaempleado, double descuentoSalud, double descuentoPension, int diasTrabajados, double valorDia) {
 
-
-        super(nombre,documento,edad,salarioBase,descuentoSalud,descuentoPension);
-
-        this.diasTrabajados=diasTrabajados;
-        this.valorDia=valorDia;
-
+        super(nombre, documento, edad, salarioBase, categoriaempleado, descuentoSalud, descuentoPension);
+        this.diasTrabajados = diasTrabajados;
+        this.valorDia = valorDia;
     }
+    @Override
+    public double calcularSalarioBruto() {
+        double totalSalarioTemporal;
+
+        totalSalarioTemporal=(diasTrabajados * valorDia) + calcularBonificacionCategoria();
+
+        return totalSalarioTemporal;
+    }
+
     public int getDiasTrabajados() {
         return diasTrabajados;
     }

@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Empresa {
 
@@ -14,52 +15,54 @@ public class Empresa {
         this.direccion = direccion;
     }
 
-    public String getDireccion() {
-        return direccion;
+
+    public void agregarEmpleadoPlanta(Empleado e) {
+        listEmpleados.add(e);
+    }
+    public void agregarEmpleadoVentas(Empleado e) {
+        listEmpleados.add(e);
+    }
+    public void agregarEmpleadoTemporal(Empleado e) {
+        listEmpleados.add(e);
     }
 
-    public String getNit() {
-        return nit;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setNit(String nit) {
-        this.nit = nit;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String crearEmpleadoVentas(String nombre, String documento, int edad, double salarioBase, CategoriaEmpleado categoriaempleado, double descuentoSalud, double descuentoPension, int totalVentas, double porcentajeComsion) {
-        String respuesta = "";
-        if (buscarEmpleado(documento)) {
-            respuesta = "El empleado ya existe con el mismo numero de cedula";
-        } else {
-            EmpleadoVenta empleadoNuevo = new EmpleadoVenta(nombre, documento, edad, salarioBase,categoriaempleado, descuentoSalud,descuentoPension, totalVentas, porcentajeComsion);
-            listEmpleados.add(empleadoNuevo);
-            respuesta = "El empleado " + empleadoNuevo.getNombre() + " se registro exitosamente en las sesión de ventas";
+    public void mostrarEmpleados() {
+        for (Empleado e : listEmpleados) {
+            e.mostrarInformacion();
         }
-        return respuesta;
     }
 
-
-    public boolean buscarEmpleado(String documento) {
-        boolean existe = false;
-        for (Cliente cl : listClientes) {
-            if (cl.getDocumento().equals(documento)) {
-                existe = true;
-                break;
+    public Empleado buscarEmpleado(String documento) {
+        Empleado encontrado = null;
+        for (Empleado e : listEmpleados) {
+            if (e.getDocumento().equals(documento)) {
+                encontrado = e;
             }
         }
-        return existe;
+        return encontrado;
     }
 
+    public Empleado empleadoMayorSalario() {
+        Empleado mayor = null;
+        for (Empleado e : listEmpleados) {
+            if (e.calcularSalarioNeto() > mayor.calcularSalarioNeto()) {
+                mayor = e;
+            }
+        }
+        return mayor;
+    }
+
+    public double calcularNominaTotal() {
+        double total = 0;
+        for (Empleado e : listEmpleados) {
+            total += e.calcularSalarioNeto();
+        }
+        return total;
+    }
+
+    public void mostrarResumenes() {
+        for (Empleado e : listEmpleados) {
+            System.out.println(e.generarResumenPago());
+        }
+    }
 }
